@@ -4,12 +4,13 @@ using System.Threading;
 
 using Meadow.Foundation.Leds;
 using Meadow.Foundation;
+using Meadow.Hardware;
 
 namespace meadow_leds
 {
     internal class MultiColorLedController
     {
-        private Random _random;
+        private readonly Random _random;
         private RgbPwmLed _rgbPwmLed;
         private Task _animationTask = null;
         private CancellationTokenSource _cancellationTokenSource = null;        
@@ -28,18 +29,19 @@ namespace meadow_leds
             Current = new MultiColorLedController();
         }
 
-        public void Initialize()
+        public void Initialize(IPwmOutputController outputController, IPin redPwmPin, IPin greenPwmPin, IPin bluePwmPin)
         {
             if (Initialized)
             {
                 return;
             }
-
+            
             _rgbPwmLed = new RgbPwmLed(
-                device: MeadowApp.Device,
-                redPwmPin: MeadowApp.Device.Pins.D12,
-                greenPwmPin: MeadowApp.Device.Pins.D11,
-                bluePwmPin: MeadowApp.Device.Pins.D10);
+                device: outputController,
+                redPwmPin: redPwmPin,
+                greenPwmPin: greenPwmPin,
+                bluePwmPin: bluePwmPin);
+
             _rgbPwmLed.SetColor(Color.Red);
 
             Initialized = true;

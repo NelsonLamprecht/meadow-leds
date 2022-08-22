@@ -6,6 +6,7 @@ using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
+using Meadow.Peripherals.Leds;
 
 namespace meadow_leds
 {
@@ -21,8 +22,6 @@ namespace meadow_leds
             // heart beat
             CycleOnboardLed(TimeSpan.FromMilliseconds(1000));
 
-            MultiColorLedController.Current.SetColor(Color.Green);
-
         }
 
         private async Task Initialize()
@@ -33,9 +32,13 @@ namespace meadow_leds
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+                IRgbLed.CommonType.CommonAnode);
 
-            MultiColorLedController.Current.Initialize();
+            MultiColorLedController.Current.Initialize(
+                Device,
+                Device.Pins.D12, 
+                Device.Pins.D11, 
+                Device.Pins.D10);
 
             await Task.CompletedTask;
         }
