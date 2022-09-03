@@ -8,7 +8,7 @@ using Meadow.Hardware;
 
 namespace meadow_leds
 {
-    internal class MultiColorLedController
+    internal class ColorCycleingLedController
     {
         private readonly Random _random;
         private RgbPwmLed _rgbPwmLed;
@@ -17,16 +17,16 @@ namespace meadow_leds
 
         protected bool Initialized = false;        
 
-        public static MultiColorLedController Current { get; private set; }
+        public static ColorCycleingLedController Current { get; private set; }
 
-        private MultiColorLedController()
+        private ColorCycleingLedController()
         {
             _random = new Random();
         }
 
-        static MultiColorLedController()
+        static ColorCycleingLedController()
         {
-            Current = new MultiColorLedController();
+            Current = new ColorCycleingLedController();
         }
 
         public void Initialize(IPwmOutputController outputController, IPin redPwmPin, IPin greenPwmPin, IPin bluePwmPin)
