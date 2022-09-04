@@ -18,7 +18,7 @@ namespace meadow_leds
         {
             Console.WriteLine("Initialize hardware...");
 
-            ColorCycleingLedController.Current.Initialize(
+            ColorCyclingLedController.Current.Initialize(
                     Device,
                     Device.Pins.OnboardLedRed,
                     Device.Pins.OnboardLedGreen,
